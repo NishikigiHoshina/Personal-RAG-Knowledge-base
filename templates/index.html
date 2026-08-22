@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-ark-theme="ark" data-ark-depth="moderate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG TERMINAL · 智能问答</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- ═══ EDGE DOCK · 侧边导航 ═══ -->
+        <nav id="sidebar" role="navigation" aria-label="主导航">
+            <div class="sidebar-brand">
+                <span class="brand-icon" aria-hidden="true">◈</span>
+                <span class="brand-text">RAG Terminal</span>
+                <span class="sidebar-version" style="margin-top:2px;display:block;">v1.0 · MODULE: AGENT</span>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <a class="nav-item active" data-page="chat" href="#" title="对话 / CHAT">
+                        <span class="nav-icon" aria-hidden="true">▸</span>
+                        <span class="nav-label">对话</span>
+                        <span class="nav-label" style="font-size:0.6rem;color:var(--ink-50);margin-left:auto;font-family:var(--font-mono);letter-spacing:0.08em;">CHAT</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-item" data-page="upload" href="#" title="上传 / UPLOAD">
+                        <span class="nav-icon" aria-hidden="true">▸</span>
+                        <span class="nav-label">文件上传</span>
+                        <span class="nav-label" style="font-size:0.6rem;color:var(--ink-50);margin-left:auto;font-family:var(--font-mono);letter-spacing:0.08em;">UPLOAD</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <span class="sidebar-version">STATUS: ONLINE</span>
+            </div>
+        </nav>
+
+        <!-- ═══ 移动菜单 ═══ -->
+        <button id="btn-menu-toggle" aria-label="菜单">MENU</button>
+
+        <!-- ═══ STAGE · 主内容区 ═══ -->
+        <div id="content">
+
+            <!-- ── PAGE: 对话 ── -->
+            <section id="page-chat" class="page active">
+                <header id="header">
+                    <div class="header-left">
+                        <h1>对话终端</h1>
+                        <span class="header-subtitle">CHAT TERMINAL · RAG MODE</span>
+                    </div>
+                    <div class="header-right">
+                        <button id="btn-toggle-panel" class="btn-icon" title="工具调用日志 / INSTRUMENTS">
+                            ◈ <span id="tool-count" class="badge hidden">0</span>
+                        </button>
+                        <button id="btn-clear" class="btn-secondary">清空 CLEAR</button>
+                    </div>
+                </header>
+
+                <main id="main">
+                    <section id="chat-section">
+                        <div id="chat-container">
+                            <div id="messages">
+                                <div class="welcome-message">
+                                    <div class="welcome-icon" aria-hidden="true">◈</div>
+                                    <h2>你好，有什么可以帮你的？</h2>
+                                    <p>KNOWLEDGE BASE · RAG RETRIEVAL · ANALYSIS</p>
+                                </div>
+                            </div>
+                            <div id="typing-indicator" class="hidden">
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                            </div>
+                        </div>
+
+                        <footer id="input-area">
+                            <div class="input-wrapper">
+                                <textarea id="chat-input" placeholder="输入你的问题… ENTER 发送 · SHIFT+ENTER 换行" rows="1" autofocus></textarea>
+                                <button id="btn-send" class="btn-primary" title="发送 SEND">
+                                    <span class="send-icon">▶</span>
+                                </button>
+                            </div>
+                            <p class="input-hint">ENTER TO SEND · SHIFT+ENTER FOR NEW LINE</p>
+                        </footer>
+                    </section>
+
+                    <aside id="tool-panel" class="collapsed" aria-label="工具日志">
+                        <div class="panel-header">
+                            <h3>◈ 工具调用日志</h3>
+                            <button id="btn-close-panel" class="btn-icon" aria-label="关闭">✕</button>
+                        </div>
+                        <div id="tool-log-list">
+                            <p class="panel-empty">NO INSTRUMENT DATA</p>
+                        </div>
+                    </aside>
+                </main>
+            </section>
+
+            <!-- ── PAGE: 上传 ── -->
+            <section id="page-upload" class="page">
+                <header id="upload-header">
+                    <h1>文件上传终端</h1>
+                    <span class="header-subtitle">UPLOAD TERMINAL · TXT / PDF</span>
+                </header>
+
+                <main id="upload-main">
+                    <div id="upload-dropzone">
+                        <div class="dropzone-content">
+                            <div class="dropzone-icon" aria-hidden="true">▣</div>
+                            <h3>拖拽文件到此处，或点击选择</h3>
+                            <p class="dropzone-hint">ACCEPT: .TXT · .PDF</p>
+                            <input type="file" id="file-input" accept=".txt,.pdf" hidden>
+                            <button id="btn-select-file" class="btn-primary">选择文件 SELECT</button>
+                        </div>
+                    </div>
+
+                    <div id="upload-status" class="hidden"></div>
+
+                    <div id="file-list-section">
+                        <div class="file-list-header">
+                            <h3>◈ 知识库文件索引</h3>
+                            <button id="btn-refresh-files" class="btn-secondary">刷新 REFRESH</button>
+                        </div>
+                        <div id="file-list-container">
+                            <p class="panel-empty">LOADING INDEX…</p>
+                        </div>
+                    </div>
+                </main>
+            </section>
+        </div>
+    </div>
+
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/upload.js"></script>
+</body>
+</html>
