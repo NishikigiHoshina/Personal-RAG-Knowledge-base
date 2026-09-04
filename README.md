@@ -248,7 +248,7 @@ streamlit run app_streamlit.py
 ### ③ 文件上传入库
 前端拖拽 → `/api/upload` → 保存 → MD5 → 去重检查 → `split_documents` → `vector_store.add_documents` → 记录 MD5。
 
-### ④ 报告生成（最复杂）
+### ④ 报告生成
 用户请求生成报告 → 模型按主提示词强约束依次调用：`get_user_id` → `get_current_month` → `fill_context_for_report`（翻转 context）→ `fetch_external_data`（检索日志）→ 中间件切换到报告 prompt → 模型用报告模板整理日志输出。
 
 > **日志自闭环**：`logger_handler` 把 `uid` 写进每行日志，`log_parser` 再按 `uid` 正则反解检索。系统自身的可观测数据即用户可查询的知识，这也是 `external_data_path` 指向 `logs/` 的原因。
