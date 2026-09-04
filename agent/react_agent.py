@@ -8,7 +8,8 @@ from langchain.agents import create_agent
 from model.factory import chat_model
 from utils.prompt_loader import load_system_prompts
 from tools.agent_tools import (rag_summarize,get_weather,get_user_id,get_user_location,
-                               get_current_month,get_time_now,fetch_external_data,fill_context_for_report)
+                               get_current_month,get_time_now,fetch_external_data,fill_context_for_report,
+                               wiki_query)
 from tools.middleware import monitor_tool,log_before_model,report_prompt_switch
 
 
@@ -18,7 +19,7 @@ class ReactAgent:
             model=chat_model,
             system_prompt=load_system_prompts(),
             tools=[rag_summarize,get_weather,get_user_id,get_current_month,get_time_now,
-                   fetch_external_data,fill_context_for_report,get_user_location],
+                   fetch_external_data,fill_context_for_report,get_user_location,wiki_query],
             middleware=[monitor_tool,log_before_model,report_prompt_switch],
         )
 

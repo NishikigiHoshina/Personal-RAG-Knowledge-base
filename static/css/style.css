@@ -1055,3 +1055,104 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ══════════════════════════════════════════════════
+   WIKI PAGE
+   ══════════════════════════════════════════════════ */
+
+#wiki-header {
+  padding: 14px 24px;
+  background: var(--ark-paper);
+  border-bottom: var(--rule) var(--ink-12);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#wiki-header h1 {
+  font-family: var(--font-tech);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ark-ink);
+}
+
+#wiki-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  max-width: 860px;
+  position: relative;
+}
+
+#wiki-main::-webkit-scrollbar { width: 4px; }
+#wiki-main::-webkit-scrollbar-thumb { background: var(--ink-30); }
+
+#wiki-count { font-size: 0.65rem; }
+
+.wiki-row { cursor: pointer; transition: background var(--transition-fast); }
+.wiki-row:hover td { background: var(--signal-08); }
+
+/* ── Wiki Detail ────────────────────────────── */
+.wiki-detail {
+  background: var(--ink-06);
+  border-left: 3px solid var(--ark-signal);
+  padding: 20px 24px;
+  margin-top: 12px;
+}
+
+.wiki-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: var(--rule) var(--ink-12);
+}
+
+.wiki-detail-head h2 {
+  font-family: var(--font-tech);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ark-ink);
+}
+
+.wiki-detail-body {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--ink-90);
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+}
+
+.wiki-section { margin-top: 18px; }
+.wiki-section h3 {
+  font-family: var(--font-tech);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: var(--ink-70);
+}
+
+.wiki-rels { display: flex; flex-wrap: wrap; gap: 8px; }
+.wiki-rel {
+  background: var(--ark-paper);
+  border: var(--rule) var(--ink-12);
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.wiki-rel em { font-style: normal; color: var(--ink-50); font-size: 0.7rem; }
+.wiki-rel:hover { border-color: var(--ark-signal); color: var(--ark-signal); }
+
+.wiki-sources {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-50);
+  word-break: break-all;
+}

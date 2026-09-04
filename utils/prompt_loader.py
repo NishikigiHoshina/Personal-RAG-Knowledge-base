@@ -52,5 +52,33 @@ def load_report_prompts():
         raise e
 
 
+def load_wiki_extract_prompts():
+    try:
+        system_prompt_path = get_abs_path(prompts_conf["wiki_extract_prompt_path"])
+    except KeyError as e:
+        logger.error(f"[load_wiki_extract_prompts]在yaml配置项中没有wiki_extract_prompt_path配置项")
+        raise e
+
+    try:
+        return open(system_prompt_path,"r",encoding="utf-8").read()
+    except Exception as e:
+        logger.error(f"[load_wiki_extract_prompts]解析wiki抽取提示词出错,{str(e)}")
+        raise e
+
+
+def load_wiki_build_prompts():
+    try:
+        system_prompt_path = get_abs_path(prompts_conf["wiki_build_prompt_path"])
+    except KeyError as e:
+        logger.error(f"[load_wiki_build_prompts]在yaml配置项中没有wiki_build_prompt_path配置项")
+        raise e
+
+    try:
+        return open(system_prompt_path,"r",encoding="utf-8").read()
+    except Exception as e:
+        logger.error(f"[load_wiki_build_prompts]解析wiki构建提示词出错,{str(e)}")
+        raise e
+
+
 if __name__=='__main__':
     print(load_system_prompts())

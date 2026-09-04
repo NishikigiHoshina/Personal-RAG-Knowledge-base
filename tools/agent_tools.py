@@ -10,17 +10,37 @@ from tools.getweather import get_weather as get_weather_from_tool
 from tools.log_parser import search_logs_simple, LogSearcher
 from langchain_core.tools import tool
 from rag.rag_service import RagSummarizeService
+from wiki.wiki_service import WikiBuildService
 from utils.config_handler import agent_conf,system_conf
 from utils.path_tool import get_abs_path
 from utils.logger_handler import logger
 
 rag = RagSummarizeService()
+wiki_service = WikiBuildService()
 
 external_data = {}
 
 @tool(description="当用户要求从知识库中获取资料时调用，从向量存储中检索参考资料，入参为用户的提问信息query，返回值为字符串")
 def rag_summarize(query:str)-> str:
     return rag.rag_summarize_service(query)
+
+@tool(description="当用户要求查阅 wiki 知识卡片或实体资料时调用，从 wiki 知识库检索实体页面（含描述、关联关系、来源），入参为用户的提问信息query，返回值为字符串")
+def wiki_query(query:str)-> str:
+    pages = wiki_service.query(query)
+    if not pages:
+        return "wiki 知识库中未检索到相关实体"
+    context = ""
+    counter = 0
+    for p in pages:
+        counter += 1
+        context += f"[实体{counter}]：{p.get('name','')}\n"
+        context += f"类型：{p.get('type','')}\n"
+        context += f"{p.get('description','')}\n"
+        rels = p.get("relationships",[])
+        if rels:
+            context += "关系：" + "；".join(f"{r.get('target','')}({r.get('desc','')})" for r in rels) + "\n"
+        context += "\n"
+    return context
 
 @tool(description="获取指定城市的天气，以消息字符串的形式返回")
 def get_weather(city:str)->str:

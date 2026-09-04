@@ -30,6 +30,13 @@
                         <span class="nav-label" style="font-size:0.6rem;color:var(--ink-50);margin-left:auto;font-family:var(--font-mono);letter-spacing:0.08em;">UPLOAD</span>
                     </a>
                 </li>
+                <li>
+                    <a class="nav-item" data-page="wiki" href="#" title="知识库 / WIKI">
+                        <span class="nav-icon" aria-hidden="true">▸</span>
+                        <span class="nav-label">知识库</span>
+                        <span class="nav-label" style="font-size:0.6rem;color:var(--ink-50);margin-left:auto;font-family:var(--font-mono);letter-spacing:0.08em;">WIKI</span>
+                    </a>
+                </li>
             </ul>
             <div class="sidebar-footer">
                 <span class="sidebar-version">STATUS: ONLINE</span>
@@ -128,10 +135,37 @@
                     </div>
                 </main>
             </section>
+
+            <!-- ── PAGE: 知识库 WIKI ── -->
+            <section id="page-wiki" class="page">
+                <header id="wiki-header">
+                    <div class="header-left">
+                        <h1>知识库终端</h1>
+                        <span class="header-subtitle">WIKI TERMINAL · ENTITY GRAPH</span>
+                    </div>
+                    <div class="header-right">
+                        <button id="btn-wiki-build" class="btn-primary">构建 BUILD</button>
+                        <button id="btn-wiki-refresh" class="btn-secondary">刷新 REFRESH</button>
+                    </div>
+                </header>
+                <main id="wiki-main">
+                    <div id="wiki-list-section">
+                        <div class="file-list-header">
+                            <h3>◈ 实体索引</h3>
+                            <span id="wiki-count" class="header-subtitle">0 ENTITIES</span>
+                        </div>
+                        <div id="wiki-list-container">
+                            <p class="panel-empty">LOADING INDEX…</p>
+                        </div>
+                    </div>
+                    <div id="wiki-detail-container" class="hidden"></div>
+                </main>
+            </section>
         </div>
     </div>
 
     <script src="/static/js/chat.js"></script>
     <script src="/static/js/upload.js"></script>
+    <script src="/static/js/wiki.js"></script>
 </body>
 </html>

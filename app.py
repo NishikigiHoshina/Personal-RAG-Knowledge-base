@@ -18,7 +18,7 @@ from langchain_core.messages import AIMessage, ToolMessage
 from agent.react_agent import ReactAgent
 
 # ── 文件上传相关 ─────────────────────────────────────────
-from tools.agent_tools import rag  # 模块级单例，获取向量库访问
+from tools.agent_tools import rag, wiki_service  # 模块级单例，获取向量库访问
 from utils.config_handler import chroma_conf
 from utils.path_tool import get_abs_path
 from utils.file_handler import txt_loader, pdf_loader, get_file_md5_hex
@@ -396,6 +396,38 @@ def _format_size(size: int) -> str:
             return f"{size:.1f} {unit}"
         size /= 1024
     return f"{size:.1f} TB"
+
+
+# ── Wiki 知识库 ────────────────────────────────────────────
+
+@app.route("/api/wiki/build", methods=["POST"])
+def wiki_build():
+    """从 data/ 目录批量构建 wiki 知识库，返回生成页面数"""
+    try:
+        count = wiki_service.build_from_data_dir()
+    except Exception as e:
+        logger.error(f"[Wiki构建]失败：{str(e)}", exc_info=True)
+        return jsonify({"status": "error", "message": f"构建失败：{str(e)}"}), 500
+    return jsonify({
+        "status": "success",
+        "pages": count,
+        "message": f"构建完成，共生成 {count} 个实体页面",
+    })
+
+
+@app.route("/api/wiki", methods=["GET"])
+def wiki_list():
+    """返回 wiki 全部实体页面摘要"""
+    return jsonify({"pages": wiki_service.store.list_pages()})
+
+
+@app.route("/api/wiki/<path:name>", methods=["GET"])
+def wiki_detail(name):
+    """返回单个实体的 wiki 页面详情"""
+    page = wiki_service.store.get_page(name)
+    if not page:
+        return jsonify({"status": "error", "message": "未找到该实体"}), 404
+    return jsonify({"page": page})
 
 
 # ── 启动入口 ───────────────────────────────────────────────

@@ -1,0 +1,5 @@
+collection_name: wiki
+persist_directory: chroma_db
+wiki_kv_path: wiki_store.json
+k: 5
+wiki_file_type: ["txt","pdf","md"]
